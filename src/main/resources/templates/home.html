@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<div><i th:text="${session.member.getEmail()}"></i></div>
+<div><i th:text="${session.member.getOauthType()}"></i></div>
+<br>
+<input type="button" id="logOutBtn" value="로그아웃">
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    $("#logOutBtn").on('click', function() {
+        $.ajax({
+            type : "POST",
+            url : "/logout",
+            success : function() {
+                alert("로그아웃 되었습니다.")
+                location.replace("/login")
+            }
+        })
+    })
+</script>
+
+</html>
