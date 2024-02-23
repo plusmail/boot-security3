@@ -3,6 +3,7 @@ package kroryi.spring.service;
 
 import kroryi.spring.entity.Member;
 import kroryi.spring.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,9 +21,9 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MemberService extends DefaultOAuth2UserService{
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -58,6 +59,11 @@ public class MemberService extends DefaultOAuth2UserService{
 
     public Member getUserByEmailAndOAuthType(String email, String oauthType) {
         return memberRepository.findByEmailAndOauthType(email, oauthType).orElse(null);
+    }
+
+    public Member findByUserId(Long userId){
+        return memberRepository.findById(userId)
+                .orElseThrow(()->new IllegalArgumentException("unexpected user"));
     }
 
 }

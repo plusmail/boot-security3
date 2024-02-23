@@ -18,8 +18,12 @@ public class Member {
     private Long id;
 
     private String email;
+    private String name;
     private String nickname;
-    @Column(name="oauth_type", columnDefinition = "VARCHAR(50)")
+    private String password;
+    private String role;
+
+    @Column(name = "oauth_type", columnDefinition = "VARCHAR(50)")
     private String oauthType;
 
     @Builder
